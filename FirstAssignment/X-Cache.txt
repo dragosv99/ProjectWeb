@@ -1,0 +1,3 @@
+X means that the header is not a standard HTTP Header. 
+The fact that X-Cache is HIT it means it was a cache HIT so the information 
+was not provided by the server but from a proxy.

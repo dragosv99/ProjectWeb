@@ -1,0 +1,13 @@
+Trying 52.87.35.92...
+Connected to httpbin.org.
+Escape character is '^]'.
+HTTP/1.1 200 OK
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Date: Tue, 20 Nov 2018 15:39:39 GMT
+Content-Type: application/json
+Content-Length: 47
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Via: 1.1 vegur
+

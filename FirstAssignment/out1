@@ -1,0 +1,10 @@
+Trying 80.92.65.53...
+Connected to weer.nl.
+Escape character is '^]'.
+HTTP/1.1 301 Moved Permanently
+Date: Tue, 20 Nov 2018 14:52:04 GMT
+Server: Apache
+Status: 301 Moved Permanently
+Location: http://www.weer.nl/
+Content-Type: text/html; charset=UTF-8
+
