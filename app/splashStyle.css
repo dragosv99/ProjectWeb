@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+	margin: auto;
+	background-repeat: no-repeat;
+}
+
+#logo {
+
+	display: block;
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.buttons {
+	
+	margin: auto;
+	width: 100px;
+}
+
+#playButton {
+	position: absolute;
+	align-content: center;
+	left: 40%;
+	top: 300px;
+	border-radius: 10px;
+		
+}
+
+#playButton:hover {
+	 
+	transform: scale(1.2); 
+}
+
+#howButton
+{
+	position: absolute;
+	align-content: center;
+	left: 40%;
+	top: 400px;
+	border-radius: 10px;
+}
+
+#howButton:hover {
+	 
+	transform: scale(1.2); 
+}
+
+#settingsButton
+{
+	position: absolute;
+	align-content: center;
+	left: 40%;
+	top: 600px;
+	border-radius: 10px;
+}
+
+#settingsButton:hover {
+	 
+	transform: scale(1.2); 
+}
+
+p {
+	
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 60px;
+	position: absolute;
+	align-content: center;
+	left: 22%;
+	top: 300px;
+	border-radius: 10px;
+	animation: blinker 2s linear infinite;
+  }
+  
+  @keyframes blinker {
+	50% {
+	  opacity: 0;
+	}

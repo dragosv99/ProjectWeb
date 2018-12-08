@@ -1,0 +1,28 @@
+#player1{
+    border-Collapse: collapse;
+    text-Align: center;
+    align-Content: center;
+    margin-left:auto; 
+    margin-right:auto;
+    position: relative;
+    top: 40px;
+}
+
+#player2{
+    border-Collapse: collapse;
+    text-Align: center;
+    align-Content: center;
+    margin-left:auto; 
+    margin-right:auto;
+    position: relative;
+    top: 80px;
+}
+
+#player1.center{
+    height: 30px;
+}
+
+td {    
+    width: 30px;
+    height: 30px;
+}
