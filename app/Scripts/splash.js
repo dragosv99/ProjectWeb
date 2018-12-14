@@ -4,7 +4,7 @@ var main = function () {
 
     $(".buttons").on("click", function(event) {
         
-        var audio = new Audio('click.wav');
+        var audio = new Audio('media/click.wav');
         audio.play();
     });
 
