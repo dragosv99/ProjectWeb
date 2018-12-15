@@ -4,16 +4,17 @@
 }
 
 body{
+
+	width: 1000px;
 	margin: auto;
-	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 #logo {
 
-	display: block;
-	margin-top: 100px;
-	margin-left: auto;
-	margin-right: auto;
+	position: absolute;
+	left: 40%;
+	top: 100px;
 }
 
 .buttons {
@@ -24,7 +25,6 @@ body{
 
 #playButton {
 	position: absolute;
-	align-content: center;
 	left: 40%;
 	top: 300px;
 	border-radius: 10px;
@@ -39,7 +39,6 @@ body{
 #howButton
 {
 	position: absolute;
-	align-content: center;
 	left: 40%;
 	top: 400px;
 	border-radius: 10px;
@@ -53,7 +52,6 @@ body{
 #settingsButton
 {
 	position: absolute;
-	align-content: center;
 	left: 40%;
 	top: 600px;
 	border-radius: 10px;
@@ -68,9 +66,8 @@ p {
 	
 	font-family: 'Courier New', Courier, monospace;
 	font-size: 60px;
-	position: absolute;
-	align-content: center;
-	left: 22%;
+	text-align: center;
+	position: relative;
 	top: 300px;
 	border-radius: 10px;
 	animation: blinker 2s linear infinite;

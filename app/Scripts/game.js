@@ -177,5 +177,7 @@ var main = function start(){
             completeout(2,posx,posy);
         }}
       });
+
+      $("#messageBox").val("Here we write messages");
 }
 $(document).ready(main);

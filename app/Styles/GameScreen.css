@@ -1,28 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    background-size: cover;
+    margin: auto;
+    margin-left: 0;
+    width: 1500px;
+}
+#logo {
+    margin: 25px;
+}
+
+#messageBox {
+
+    position: absolute;
+    top: 30px;
+    left: 550px;
+    height: 30px;
+    width: 400px;
+    padding: 5px;
+    border-radius: 8px;
+    border: 0;
+}
+
+.stats {
+    float: right;
+    margin-top: 30px;
+    margin-right: 40px;
+    width: 320px;
+    height: 100px;
+    background-color: black; 
+    border: 8px solid rgb(156, 63, 0);
+    border-radius: 10px;
+}
+
+.stats h2 {
+    text-align: center;
+    margin: auto;
+    color: rgb(216, 94, 7);
+}
+
+.stats h3 {
+    color: rgb(216, 94, 7);
+}
+
+#you {
+    float: left;
+    margin-left: 40px;
+}
+
+#opponent {
+    float: right;
+    margin-right: 15px;
+}
+
+.stats p {
+    text-align: center;
+    color: rgb(216, 94, 7);
+    margin: 5px;
+    clear: both;
+}
+
+button {
+
+    display: block;
+    margin: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: bisque;
+    border: 0;
+}
+
+.buttons {
+    float: left;
+    width: 200px;
+    margin-top: 50px;
+}
+
+.rotate {
+
+    float: left;
+    margin: 10px;
+    margin-left: 20px;
+    width: 20%;
+    size: 20%;
+}
+
+main h2 {
+    display: inline;
+    position: relative;
+    top: 40px;
+    margin-left: 260px;
+    margin-right: 170px;
+}
+
+
 #player1{
+   
+    display: inline;
     border-Collapse: collapse;
     text-Align: center;
     align-Content: center;
-    margin-left:auto; 
-    margin-right:auto;
     position: relative;
-    top: 40px;
+    top: 50px;
+    left: 80px;
 }
 
 #player2{
+   
+    display: inline;
     border-Collapse: collapse;
     text-Align: center;
     align-Content: center;
-    margin-left:auto; 
-    margin-right:auto;
     position: relative;
-    top: 80px;
-}
-
-#player1.center{
-    height: 30px;
+    top: 50px;
+    left: 200px;
 }
 
 td {    
-    width: 30px;
-    height: 30px;
+    width: 38px;
+    height: 38px;
 }

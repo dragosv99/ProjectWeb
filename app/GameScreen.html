@@ -8,11 +8,41 @@
         <link rel="stylesheet" type="text/css" href="styles/GameScreen.css">
     </head>
 
-    <body background="media/background.png">
-        <div id = "result"> </div>
-        <p></p>
-        <button id = "type1"> Type 1</button>
-        <button id = "type2"> Type 2 </button>
+    <body background="media/background.png" >
+
+        <header>
+            <img id="logo" src="media/logobig.png" type="image/png" alt="Game Logo"/>
+            <input id="messageBox">
+
+            <div class="stats">
+                <h2>Game Stats</h2>
+                <h3 id="you">You</h3>
+                <h3 id="opponent">Opponent</h3>
+                <p>Ships Alive</p>
+                <p>Ships Destroyed</p>
+            </div>
+
+        </header>
+
+        <main>
+            <div id = "result"> </div>
+
+            <div class="buttons">
+                <button id = "type1"> UFO'S (1x1)</button>
+                <button id = "type2"> Space Shuttle (2x1)</button>
+                <button id = "type3">  Galactic Rocket (3x1)</button>
+                <input type="image" class="rotate" src="media/rotate_left.png" />
+                <input type="image" class="rotate" src="media/rotate_right.png" />
+            </div>
+
+            <h2>Your Ships</h2>
+            <h2>Enemy Ships</h2>
+
+        </main>
+
+        <footer>
+
+        </footer>
 
         <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
         <script src="scripts/game.js"></script>

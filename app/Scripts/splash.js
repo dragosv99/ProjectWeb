@@ -8,21 +8,39 @@ var main = function () {
         audio.play();
     });
 
-   $("#playButton").on("click", function(event){
-    $(".buttons").hide();
+    $("#playButton").on("click", function(event){
+        $(".buttons").hide();
 
-    var $message = $("<p>");
-    $message.text("Searching for opponent...");
-    $message.hide();
-    $("body").append($message);
-    $message.fadeIn();
+        var $message = $("<p>");
+        $message.text("Searching for opponent...");
+        $message.hide();
+        $("body").append($message);
+        $message.fadeIn();
 
-    function openGameScreen() {
-        location.href = "GameScreen.html";
-    };
-     window.setTimeout(openGameScreen,3000);
+        function openGameScreen() {
+            location.href = "GameScreen.html";
+        };
+        window.setTimeout(openGameScreen,3000);
     
-});
+    });
+    
+    $("#howButton").on("click", function(event){
+        $(".buttons").hide();
+
+        var $message = $("<p>");
+        $message.text("Redirecting...");
+        $message.hide();
+        $("body").append($message);
+        $message.fadeIn();
+
+        function openWikipedia() {
+            location.href = "https://en.wikipedia.org/wiki/Battleship_(game)";
+        };
+        window.setTimeout(openWikipedia,1500);
+    
+    });
+
+    
 
 
 };
