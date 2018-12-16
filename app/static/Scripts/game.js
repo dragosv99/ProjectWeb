@@ -3,6 +3,7 @@ var GAMEDONE = false;
 var allowed = false;
 
 mytable = [];
+enemytable = [];
 alive = [];
 alive[0] = 0;
 var shipno =1;
@@ -18,6 +19,16 @@ for(var i = 1;i <= 10; i++)
         mytable[i][j]=0;
     }
 }
+
+for(var i = 1;i <= 10; i++)
+{
+    enemytable[i]=[];
+    for(var j = 0;j <= 9; j++)
+    {
+        enemytable[i][j]= false;
+    }
+}
+
 connection.onopen = function()
 {
     connection.send("Play");
@@ -99,13 +110,27 @@ connection.onmessage = function(event)
     if (event.data.includes("MISS")){
         let position = parseInt(event.data) + 'two';
         console.log(position);
+       
         document.getElementById(position).style.backgroundColor = 'DimGray';
+        document.getElementById(position).style.opacity = 1;
+        
+        var posx = parseInt(parseInt(position)/10) +1;
+        var posy = parseInt(position)%10;
+        enemytable[posx][posy] = true;
+       
         $("#messageBox").val("It's opponent's turn");
     }
     if (event.data.includes("HIT")){
         let position = parseInt(event.data) + 'two';
         console.log(position);
+        
         document.getElementById(position).style.backgroundColor = 'Red';
+        document.getElementById(position).style.opacity = 1;
+        
+        var posx = parseInt(parseInt(position)/10) +1;
+        var posy = parseInt(position)%10;
+        enemytable[posx][posy] = true;
+        
         $("#messageBox").val("It's opponent's turn");
     }
     if (event.data.includes("OPTURN"))
@@ -213,6 +238,10 @@ function completeout(type,coordx,coordy)
         if(mytable[coordx-antirotate][coordy-rotate] == 0)document.getElementById((position-rotate-10*antirotate).toString()+'one').style.backgroundColor = 'transparent';
         document.getElementById((position).toString()+'one').style.backgroundColor = 'transparent';
     }
+    if(type === "two")
+    {
+        document.getElementById((position).toString()+'two').style.backgroundColor = 'transparent';
+    }
 }
 function completeover(type,coordx,coordy)
 {
@@ -245,7 +274,11 @@ function completeover(type,coordx,coordy)
             document.getElementById((position).toString()+'one').style.opacity = 0.6;
         }
     }
-
+    if(type === "two")
+    {
+        document.getElementById((position).toString()+'two').style.backgroundColor = 'Black';
+        document.getElementById((position).toString()+'two').style.opacity = 0.3;
+    }
 
 }
 var main = function start(){
@@ -273,26 +306,29 @@ var main = function start(){
 
     $("td").on("mouseover",function()
     {
-        if(available[type] > 0)
+        
+        var position = parseInt(this.id);
+        var posx = parseInt(position/10) +1;
+        var posy = position%10;
+        if(this.id.includes('one') && mytable[posx][posy] == 0 && available[type] > 0)
         {
-            var position = parseInt(this.id);
-            var posx = parseInt(position/10) +1;
-            var posy = position%10;
-            if(this.id.includes('one') && mytable[posx][posy] == 0)
+            if(type==1)
             {
-                if(type==1)
-                {
-                completeover(1,posx,posy);
-                }
-                if(type==3 && ((antirotate && posy>= 0 && posy<=9) || (rotate && posy>=1 && posy <=8)))
-                {
-                    completeover(3,posx,posy);
-                }
-                if(type==2 && ((antirotate &&  posx<10) || (rotate && posy<9)))
-                {
-                    completeover(2,posx,posy);
-                } 
+            completeover(1,posx,posy);
             }
+            if(type==3 && ((antirotate && posy>= 0 && posy<=9) || (rotate && posy>=1 && posy <=8)))
+            {
+                completeover(3,posx,posy);
+            }
+            if(type==2 && ((antirotate &&  posx<10) || (rotate && posy<9)))
+            {
+                completeover(2,posx,posy);
+            } 
+        }
+
+        else if(noShipsAvailable === true && this.id.includes('two') && enemytable[posx][posy] === false )
+        {
+            completeover("two",posx,posy);    
         }
 
     });
@@ -302,19 +338,23 @@ var main = function start(){
         var posx = parseInt(position/10) +1;
         var posy = position%10;
         if(this.id.includes('one') && mytable[posx][posy] == 0)
-        {
-        if(type===1)
-        {
-            completeout(1,posx,posy);
+            {
+            if(type===1)
+            {
+                completeout(1,posx,posy);
+            }
+            if(type===3)
+            {
+                completeout(3,posx,posy);
+            }
+            if(type===2)
+            {
+                completeout(2,posx,posy);
+            }
         }
-        if(type===3)
+        else if(this.id.includes('two') && enemytable[posx][posy] === false)
         {
-            completeout(3,posx,posy);
-        }
-        if(type===2)
-        {
-            completeout(2,posx,posy);
-        }
+            completeout("two",posx,posy);
         }
     });
     $("td").on("click" , function() {     
