@@ -283,7 +283,7 @@ var main = function start(){
                 completeover(2,posx,posy);
             } 
         }
-      });
+    });
     $("td").on("mouseout", function()
      {
         var position = parseInt(this.id);
@@ -304,7 +304,7 @@ var main = function start(){
             completeout(2,posx,posy);
         }
         }
-      });
+    });
     $("td").on("click" , function() {     
 
         //this.style.color = red;  
