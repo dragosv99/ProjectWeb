@@ -82,6 +82,11 @@ wss.on("connection", function(ws)
             users[currentGame.opponent(games[ws.id], ws.id)].send(message);
             users[ws.id].send("MOVE");
         }
+        if(message.includes("ILOST"))
+        {
+            users[currentGame.opponent(games[ws.id], ws.id)].send("WIN");
+            users[ws.id].send("LOST");
+        }
     });
 
 });

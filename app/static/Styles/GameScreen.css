@@ -81,7 +81,8 @@ button {
 .buttons {
     float: left;
     width: 200px;
-    margin-top: 50px;
+    margin-top: 180px;
+    margin-left: 20px;
 }
 
 #ready {
@@ -94,10 +95,13 @@ button {
 #rotate {
 
     float: left;
-    margin: 10px;
-    margin-left: 20px;
-    width: 20%;
-    size: 20%;
+    margin-left: 85px;
+    width: 35%;
+    size: 70%;
+}
+
+#type1 {
+    margin-left: 30px;
 }
 
 main h2 {
@@ -140,3 +144,4 @@ p,h2,h3 {
 
     font-family: 'Courier New', Courier, monospace;
 }
+

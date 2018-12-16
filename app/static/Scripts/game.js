@@ -37,14 +37,14 @@ connection.onmessage = function(event)
     }
     if(event.data === "LOST")
     {
-        document.getElementById("messageBox").innerHTML = "YOU LOST";
-        DONE = true;
+        $("#messageBox").val("YOU LOST");
+        GAMEDONE = true;
         return;
     }
     if(event.data === "WIN")
     {
-        document.getElementById("messageBox").innerHTML = "It's Your turn";
-        DONE = true;
+        $("#messageBox").val("YOU WON");
+        GAMEDONE = true;
         return;
     }
     if(event.data === "PLACE")
@@ -87,7 +87,7 @@ connection.onmessage = function(event)
             var gamecontinues = false;
             for(let i=1;i<=6;i++)
             {
-                if(alive[i] != 0) gamecontinues = false;
+                if(alive[i] != 0) gamecontinues = true;
             }
             if(!gamecontinues) connection.send("ILOST");
         }
@@ -333,7 +333,7 @@ var main = function start(){
                 available[type] --;
                 complete(1,posx,posy);
 
-                $("#type1").text(`${available[type]} x UFO`);
+                $('#type1').attr('src', "media/UFO1.png");
                 if(available[1] === 0)
                 {
                     $("#type1").fadeOut();
@@ -345,7 +345,7 @@ var main = function start(){
                 available[type] --;
                 complete(2,posx,posy);
 
-                $("#type2").text(`${available[type]} x Space Shuttle`);
+                $("#type2").attr('src', "media/SP1.png");
                 if(available[2] === 0)
                 {
                     $("#type2").fadeOut();
@@ -356,7 +356,7 @@ var main = function start(){
                available[type]--;
                complete(3,posx,posy);
 
-               $("#type3").text(`${available[type]} x Galactic Rocket`);
+               $("#type3").attr('src', "media/GR1.png");
                if(available[3] === 0)
                {
                    $("#type3").fadeOut();
@@ -368,8 +368,9 @@ var main = function start(){
                noShipsAvailable = true;
 
                $("#rotate").fadeOut();
-               var $newButton = $("<button>" , {id: "ready"});
-               $newButton.text("READY!");
+               var $newButton = $("<img>" , {id: "ready"});
+               //$newButton.text("READY!");
+               $newButton.attr('src', "media/Ready.png");
                $newButton.hide();
                $newButton.on("click", function()
                {
@@ -382,6 +383,7 @@ var main = function start(){
                setTimeout(function() {
                 $newButton.fadeIn();
                },700);
+               
                $("#messageBox").val("Press READY to continue!");
            }
         
