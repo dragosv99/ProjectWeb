@@ -38,6 +38,11 @@ game.prototype.hasOnePlayerConnected = function()
     return (this.sp == null || this.fp == null);
 }
 
+game.prototype.hasNoPlayerConnected = function()
+{
+    return (this.sp == null && this.dp == null);
+}
+
 game.prototype.addPlayer = function(id){
     if (this.fp == null) 
     {

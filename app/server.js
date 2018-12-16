@@ -38,16 +38,13 @@ var playersOnline = 0;
 
 wss.on("connection", function(ws)
 {
-    if(playersOnline == 0) 
-    {
-        currentGame = new game(++GamesCreated);
-    }
     playersOnline++;
+    if(playersOnline == 1) currentGame = new game(++GamesCreated);
     ws.send(playersOnline + "CONNECTED");
     ws.onclose = function()
     {
         playersOnline--;
-        if(playersOnline > 0 && users[opponent(games[ws.id],ws.id)].readyState === websocket.OPEN){
+        if(opponent(games[ws.id],ws.id) != null && playersOnline > 0 && users[opponent(games[ws.id],ws.id)].readyState === websocket.OPEN){
         users[opponent(games[ws.id], ws.id)].send("LEFT");
         }
     }
@@ -55,6 +52,7 @@ wss.on("connection", function(ws)
     {
         if(message.includes("PLAY"))
         {
+            if(playersOnline % 2 == 1) currentGame = new game(++GamesCreated);
             ID++;
             console.log(ID);
             ws.id = ID;
