@@ -68,22 +68,20 @@ body {
     clear: both;
 }
 
-button {
-
-    display: block;
-    margin: 10px;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: bisque;
-    cursor:pointer;
-    font-family: 'Courier New', Courier, monospace;
-}
-
 .buttons {
     float: left;
     width: 200px;
-    margin-top: 180px;
+    margin-top: 80px;
     margin-left: 20px;
+}
+
+.buttons input {
+    margin: 10px;
+}
+
+.buttons input:active {
+	 
+	transform: scale(1.1); 
 }
 
 #ready {
@@ -99,10 +97,6 @@ button {
     margin-left: 85px;
     width: 35%;
     size: 70%;
-}
-
-#type1 {
-    margin-left: 30px;
 }
 
 main h2 {

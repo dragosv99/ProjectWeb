@@ -408,7 +408,7 @@ var main = function start(){
                noShipsAvailable = true;
 
                $("#rotate").fadeOut();
-               var $newButton = $("<img>" , {id: "ready"});
+               var $newButton = $("<input>" , {type: "image" , id: "ready"});
                //$newButton.text("READY!");
                $newButton.attr('src', "media/Ready.png");
                $newButton.hide();
