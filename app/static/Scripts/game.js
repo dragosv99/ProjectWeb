@@ -71,7 +71,8 @@ connection.onmessage = function(event)
                     {
                         if(mytable[i][j] === mytable[posx][posy])
                         {
-                            document.getElementById((i-1)*10+j+"one").style.backgroundColor = '#696969';
+                            document.getElementById((i-1)*10+j+"one").style.backgroundColor = 'Black';
+                            document.getElementById((i-1)*10+j+"one").style.opacity = 0.7;
                         }
                     }
                 }
@@ -79,7 +80,7 @@ connection.onmessage = function(event)
             }
             else
             {
-                document.getElementById(position+"one").style.backgroundColor = '#dadce3';
+                document.getElementById(position+"one").style.opacity = 0.4;
                 connection.send(position+"HIT");
             }
             var gamecontinues = false;
@@ -97,13 +98,13 @@ connection.onmessage = function(event)
     if (event.data.includes("MISS")){
         let position = parseInt(event.data) + 'two';
         console.log(position);
-        document.getElementById(position).style.backgroundColor = '#696969';
+        document.getElementById(position).style.backgroundColor = 'DimGray';
         $("#messageBox").val("It's opponent's turn");
     }
     if (event.data.includes("HIT")){
         let position = parseInt(event.data) + 'two';
         console.log(position);
-        document.getElementById(position).style.backgroundColor = 'red';
+        document.getElementById(position).style.backgroundColor = 'Red';
         $("#messageBox").val("It's opponent's turn");
     }
     if (event.data.includes("OPTURN"))
@@ -151,21 +152,21 @@ function complete(type,coordx,coordy)
     position += coordy;
     if(type === 1)
     {
-        document.getElementById((position).toString()+'one').style.backgroundColor = 'blue';
+        document.getElementById((position).toString()+'one').style.opacity = 1;
         alive[shipno]=1;
     }
     if(type === 2)
     {
-        document.getElementById((position+rotate+10*antirotate).toString()+'one').style.backgroundColor = 'black';
-        document.getElementById((position).toString()+'one').style.backgroundColor = 'black';
+        document.getElementById((position+rotate+10*antirotate).toString()+'one').style.opacity = 1;
+        document.getElementById((position).toString()+'one').style.opacity = 1;
         mytable[coordx+antirotate][coordy+rotate]=shipno;
         alive[shipno]=2;
     }
     if(type === 3)
     {
-        document.getElementById((position+rotate+10*antirotate).toString()+'one').style.backgroundColor = 'red';
-        document.getElementById((position-rotate-10*antirotate).toString()+'one').style.backgroundColor = 'red';
-        document.getElementById((position).toString()+'one').style.backgroundColor = 'red';
+        document.getElementById((position+rotate+10*antirotate).toString()+'one').style.opacity = 1;
+        document.getElementById((position-rotate-10*antirotate).toString()+'one').style.opacity = 1;
+        document.getElementById((position).toString()+'one').style.opacity = 1;
         mytable[coordx-antirotate][coordy-rotate]=shipno;
         mytable[coordx+antirotate][coordy+rotate]=shipno;
         alive[shipno]=3;
@@ -218,23 +219,29 @@ function completeover(type,coordx,coordy)
     position += coordy;
     if(type == 1)
     {
-        document.getElementById((position).toString()+'one').style.backgroundColor = 'purple';
+        document.getElementById((position).toString()+'one').style.backgroundColor = 'LimeGreen';
+        document.getElementById((position).toString()+'one').style.opacity = 0.6;
     }
     if(type == 2)
     {
         if(mytable[coordx+antirotate][coordy+rotate] == 0)
         {
-            document.getElementById((position).toString()+'one').style.backgroundColor = 'orange';
-            document.getElementById((position+rotate+10*antirotate).toString()+'one').style.backgroundColor = 'orange';
+            document.getElementById((position).toString()+'one').style.backgroundColor = 'Yellow';
+            document.getElementById((position).toString()+'one').style.opacity = 0.6;
+            document.getElementById((position+rotate+10*antirotate).toString()+'one').style.backgroundColor = 'Yellow';
+            document.getElementById((position+rotate+10*antirotate).toString()+'one').style.opacity = 0.6;
         }
     }
     if(type == 3)
     {
         if(mytable[coordx-antirotate][coordy-rotate] == 0 && mytable[coordx+antirotate][coordy+rotate] == 0) 
         {
-            document.getElementById((position+10*antirotate+rotate).toString()+'one').style.backgroundColor = 'green';
-            document.getElementById((position-10*antirotate-rotate).toString()+'one').style.backgroundColor = 'green';
-            document.getElementById((position).toString()+'one').style.backgroundColor = 'green';
+            document.getElementById((position+10*antirotate+rotate).toString()+'one').style.backgroundColor = 'DarkTurquoise';
+            document.getElementById((position+10*antirotate+rotate).toString()+'one').style.opacity = 0.6;
+            document.getElementById((position-10*antirotate-rotate).toString()+'one').style.backgroundColor = 'DarkTurquoise';
+            document.getElementById((position-10*antirotate-rotate).toString()+'one').style.opacity = 0.6;
+            document.getElementById((position).toString()+'one').style.backgroundColor = 'DarkTurquoise';
+            document.getElementById((position).toString()+'one').style.opacity = 0.6;
         }
     }
 
@@ -362,14 +369,14 @@ var main = function start(){
                $newButton.on("click", function()
                {
                    connection.send("DONE");
-                   $("#messageBox").val("WAIT FOR OPPONENT TO PLACE SHIPS");
+                   $("#messageBox").val("Waiting for opponent to place his ships");
                    $("#ready").fadeOut();
                });
                $(".buttons").append($newButton);
                
                setTimeout(function() {
                 $newButton.fadeIn();
-               },1000);
+               },700);
                $("#messageBox").val("Press READY to continue!");
            }
         

@@ -11,7 +11,7 @@ var main = function () {
     $("#playButton").on("click", function(event){
         $(".buttons").hide();
 
-        var $message = $("<p>");
+        var $message = $("<p>" , {class: "redirect"});
         $message.text("Searching for opponent...");
         $message.hide();
         $("body").append($message);
@@ -27,7 +27,7 @@ var main = function () {
     $("#howButton").on("click", function(event){
         $(".buttons").hide();
 
-        var $message = $("<p>");
+        var $message = $("<p>" , {class: "redirect"});
         $message.text("Redirecting...");
         $message.hide();
         $("body").append($message);

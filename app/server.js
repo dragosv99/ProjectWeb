@@ -85,3 +85,5 @@ wss.on("connection", function(ws)
 
 server.listen(port);
 
+console.log(`Server listening on port ${port}`);
+
