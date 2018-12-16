@@ -1,3 +1,13 @@
+var connection = new WebSocket("ws://localhost:3000");
+
+connection.onmessage = function(event) {
+    if(event.data.includes("CONNECTED"))
+    {
+        $("#online").text(`Players Online: ${parseInt(event.data)}`);
+    }
+};
+
+
 var main = function () {
     "use strict";
     
@@ -11,7 +21,7 @@ var main = function () {
     $("#playButton").on("click", function(event){
         $(".buttons").hide();
 
-        var $message = $("<p>");
+        var $message = $("<p>" , {class: "redirect"});
         $message.text("Searching for opponent...");
         $message.hide();
         $("body").append($message);
@@ -27,7 +37,7 @@ var main = function () {
     $("#howButton").on("click", function(event){
         $(".buttons").hide();
 
-        var $message = $("<p>");
+        var $message = $("<p>" , {class: "redirect"});
         $message.text("Redirecting...");
         $message.hide();
         $("body").append($message);

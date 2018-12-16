@@ -5,8 +5,9 @@
 
 body{
 
-	width: 1000px;
+	width: 1200px;
 	margin: auto;
+	margin-left: 0%;
 	background-size: cover;
 }
 
@@ -62,7 +63,7 @@ body{
 	transform: scale(1.2); 
 }
 
-p {
+.redirect {
 	
 	font-family: 'Courier New', Courier, monospace;
 	font-size: 60px;
@@ -71,6 +72,18 @@ p {
 	top: 300px;
 	border-radius: 10px;
 	animation: blinker 2s linear infinite;
+  }
+
+  .stats {
+	float: left;
+	margin: 20px;
+  }
+
+  .stats p {
+	
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 20px;
+	margin: 10px;
   }
   
   @keyframes blinker {

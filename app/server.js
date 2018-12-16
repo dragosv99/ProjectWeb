@@ -25,11 +25,14 @@ const wss = new websocket.Server({server});
 
 var currentGame = new game(++GamesCreated);
 var ID = 0;
+var playersOnline = 0;
 
 wss.on("connection", function(ws)
 {
     ID++;
+    playersOnline++;
     console.log(ID);
+    ws.send(playersOnline + "CONNECTED");
     ws.on("message", function incoming(message)
     {
         if(message.includes("Play"))
@@ -84,4 +87,6 @@ wss.on("connection", function(ws)
 });
 
 server.listen(port);
+
+console.log(`Server listening on port ${port}`);
 
