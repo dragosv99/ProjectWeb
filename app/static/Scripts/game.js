@@ -9,40 +9,56 @@ alive[0] = 0;
 var shipno =1;
 var rotate = 1;
 var antirotate=0;
+var placeable = false;
+var noShipsAvailable = false; 
 available = [];
-for(let i = 1;i <= 3; i++) available[i] = 2;
-for(var i = 1;i <= 10; i++)
-{
-    mytable[i]=[];
-    for(var j = 0;j <= 9; j++)
+function initialize(){
+    
+    placeable = false;
+    GAMEDONE = false;
+    rotate=1;
+    antirotate=0;
+    shipno=1;
+    noShipsAvailable = false;
+    for(var i = 1;i <= 3; i++) available[i] = 2;
+    for(var i = 1;i <= 10; i++)
     {
-        mytable[i][j]=0;
+        mytable[i]=[];
+        enemytable[i]=[];
+        for(var j = 0;j <= 9; j++)
+        {
+            mytable[i][j]=0;
+            enemytable[i][j]= false;
+            let position = (i-1)*10;
+            position += j;
+            document.getElementById(position+'two').style.backgroundColor = 'transparent';
+            document.getElementById(position+'one').style.backgroundColor = 'transparent';
+            $("#type3").attr('src', "media/GR2.png");
+            $("#type2").attr('src', "media/SP2.png");
+            $("#type1").attr('src', "media/UFO2.png");
+            $("#type1").fadeIn();
+            $("#type2").fadeIn();
+            $("#type3").fadeIn();
+            $("#rotate").fadeIn();
+            $("#ready").remove();
+        }
     }
 }
-
-for(var i = 1;i <= 10; i++)
-{
-    enemytable[i]=[];
-    for(var j = 0;j <= 9; j++)
-    {
-        enemytable[i][j]= false;
-    }
-}
-
 connection.onopen = function()
 {
-    connection.send("Play");
+    connection.send("PLAY");
 };
 connection.onmessage = function(event)
 {
-    if(event.data === "LEFT")
+    if(event.data.includes("LEFT"))
     {
-        connection.send("Play");
+        connection.send("PLAY");
+        initialize();
         return;
     }
     if(event.data === "MOVE")
     {
-        $("#messageBox").val("Your turn");
+        $("#messageBox").val("Your turn: Choose a cell to attack");
         allowed = true;
         return;
     }
@@ -61,6 +77,7 @@ connection.onmessage = function(event)
     if(event.data === "PLACE")
     {
         $("#messageBox").val("Place your ships");
+        placeable = true;
     }
     if(event.data.includes("WAIT"))
     {
@@ -118,7 +135,7 @@ connection.onmessage = function(event)
         var posy = parseInt(position)%10;
         enemytable[posx][posy] = true;
        
-        $("#messageBox").val("It's opponent's turn");
+        $("#messageBox").val("It's the opponent's turn");
     }
     if (event.data.includes("HIT")){
         let position = parseInt(event.data) + 'two';
@@ -131,7 +148,7 @@ connection.onmessage = function(event)
         var posy = parseInt(position)%10;
         enemytable[posx][posy] = true;
         
-        $("#messageBox").val("It's opponent's turn");
+        $("#messageBox").val("It's th eopponent's turn");
     }
     if (event.data.includes("OPTURN"))
     {
@@ -205,12 +222,12 @@ function verify(id,type)
     var coordy = id%10;
     if(type === 3)
     {
-        if(mytable[coordx][coordy] === 1 || mytable[coordx+antirotate][coordy+rotate] === 1 || mytable[coordx-antirotate][coordy-rotate] === 1 ) return false;
+        if(mytable[coordx][coordy] > 0 || mytable[coordx+antirotate][coordy+rotate] > 0 || mytable[coordx-antirotate][coordy-rotate] > 0 ) return false;
         else return true;
     }
     if(type === 2)
     {
-        if(mytable[coordx][coordy] === 1 || mytable[coordx+antirotate][coordy+rotate] === 1) return false;
+        if(mytable[coordx][coordy] > 0 || mytable[coordx+antirotate][coordy+rotate] > 0) return false;
         else return true;
     }
     if(type === 1)
@@ -284,8 +301,8 @@ function completeover(type,coordx,coordy)
 var main = function start(){
     tableCreate('player1');
     tableCreate('player2');
+    initialize();
     var type = 1;
-    var noShipsAvailable = false; 
     $("#type1").on("click" , function()
     {
         type = 1;
@@ -314,7 +331,7 @@ var main = function start(){
         {
             if(type==1)
             {
-            completeover(1,posx,posy);
+                completeover(1,posx,posy);
             }
             if(type==3 && ((antirotate && posy>= 0 && posy<=9) || (rotate && posy>=1 && posy <=8)))
             {
@@ -362,11 +379,11 @@ var main = function start(){
         //this.style.color = red;  
         //$("#result").html( this.id );   
         var cell = document.getElementById(this.id);
-        if(this.id.includes('one'))
+        var position = parseInt(cell.id);
+        var posx = parseInt(position/10) +1;
+        var posy = position%10;
+        if(this.id.includes('one') && placeable)
         {
-            var position = parseInt(cell.id);
-            var posx = parseInt(position/10) +1;
-            var posy = position%10;
            if(type === 1 && verify(parseInt(cell.id),1) && available[type]) 
            {
                
@@ -391,7 +408,7 @@ var main = function start(){
                     $("#type2").fadeOut();
                 }
            }
-           if(type === 3 && verify(parseInt(cell.id),3) && available[type] && ((posy >= 0 && antirotate && posy<=9) || (posx>1 && posx<10 && rotate))) 
+           if(type === 3 && verify(parseInt(cell.id),3) && available[type] && ((posx >= 1 && antirotate && posx<=9) || (posy>=1 && rotate && posy<=9))) 
            {
                available[type]--;
                complete(3,posx,posy);
@@ -430,10 +447,14 @@ var main = function start(){
         } 
         if (this.id.includes('two'))
         {
-            if (allowed && !GAMEDONE)
+            if (allowed && !GAMEDONE && enemytable[posx][posy] == false)
             {
                 connection.send(parseInt(cell.id) + 'PC');
                 allowed = false;
+            }
+            if(enemytable[posx][posy] == true)
+            {
+                $("#messageBox").val("Choose another cell to attack!");
             }
         }
         

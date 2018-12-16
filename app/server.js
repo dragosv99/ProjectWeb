@@ -9,6 +9,15 @@ var games = [];
 var port = process.argv[2];
 var app = express();
 
+function opponent (game,id)
+{
+    if (id === game.fp)
+    {
+        return game.sp;
+    }
+    return game.fp;
+}
+
 app.use(express.static(__dirname+"/static"));
 app.get("/",function(req,res)
 {
@@ -29,14 +38,25 @@ var playersOnline = 0;
 
 wss.on("connection", function(ws)
 {
-    ID++;
+    if(playersOnline == 0) 
+    {
+        currentGame = new game(++GamesCreated);
+    }
     playersOnline++;
-    console.log(ID);
     ws.send(playersOnline + "CONNECTED");
+    ws.onclose = function()
+    {
+        playersOnline--;
+        if(playersOnline > 0 && users[opponent(games[ws.id],ws.id)].readyState === websocket.OPEN){
+        users[opponent(games[ws.id], ws.id)].send("LEFT");
+        }
+    }
     ws.on("message", function incoming(message)
     {
-        if(message.includes("Play"))
+        if(message.includes("PLAY"))
         {
+            ID++;
+            console.log(ID);
             ws.id = ID;
             users[ID] = ws;
             if(currentGame.hasTwoConnectedPlayers())
@@ -73,18 +93,18 @@ wss.on("connection", function(ws)
         }
         if(message.includes("PC"))
         {
-            console.log("from" + ws.id + "to " + currentGame.opponent(games[ws.id], ws.id));
-            users[currentGame.opponent(games[ws.id], ws.id)].send(parseInt(message) + "VERIFY");
+            console.log("from" + ws.id + "to " + users[opponent(games[ws.id], ws.id)]);
+            users[opponent(games[ws.id], ws.id)].send(parseInt(message) + "VERIFY");
         }
         if(message.includes("MISS") || message.includes("HIT"))
         {
             console.log("GOOD");
-            users[currentGame.opponent(games[ws.id], ws.id)].send(message);
+            users[opponent(games[ws.id], ws.id)].send(message);
             users[ws.id].send("MOVE");
         }
         if(message.includes("ILOST"))
         {
-            users[currentGame.opponent(games[ws.id], ws.id)].send("WIN");
+            users[opponent(games[ws.id], ws.id)].send("WIN");
             users[ws.id].send("LOST");
         }
     });

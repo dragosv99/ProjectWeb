@@ -1,11 +1,3 @@
-var connection = new WebSocket("ws://localhost:3000");
-
-connection.onmessage = function(event) {
-    if(event.data.includes("CONNECTED"))
-    {
-        $("#online").text(`Players Online: ${parseInt(event.data)}`);
-    }
-};
 
 
 var main = function () {
