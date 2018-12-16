@@ -21,9 +21,11 @@ body {
     left: 550px;
     height: 30px;
     width: 400px;
-    padding: 5px;
+    padding: 10px;
     border-radius: 8px;
     border: 0;
+    font-size: 20px;
+    
 }
 
 .stats {
@@ -71,7 +73,8 @@ button {
     border-radius: 5px;
     padding: 10px;
     background-color: bisque;
-    border: 0;
+    cursor:pointer;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .buttons {
@@ -80,7 +83,14 @@ button {
     margin-top: 50px;
 }
 
-.rotate {
+#ready {
+    padding: 25px;
+    width: 200px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#rotate {
 
     float: left;
     margin: 10px;
@@ -123,4 +133,9 @@ main h2 {
 td {    
     width: 38px;
     height: 38px;
+}
+
+p,h2,h3 {
+
+    font-family: 'Courier New', Courier, monospace;
 }

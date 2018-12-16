@@ -41,16 +41,17 @@ for(var i = 1;i<=10;i++){
         mytable[i][j]=0;
     }
 }
+
 function verify(id,type)
 {
     var coordx = parseInt(id/10+1);
     var coordy = id%10;
-    if(type == 2)
+    if(type === 3)
     {
         if(mytable[coordx][coordy] === 1 || mytable[coordx][coordy+1] === 1 || mytable[coordx][coordy-1] === 1 ) return false;
         else return true;
     }
-    if(type == 1)
+    if(type === 1)
     {
         if(mytable[coordx][coordy] === 1) return false;
         else return true;
@@ -61,11 +62,11 @@ function complete(type,coordx,coordy)
     mytable[coordx][coordy]=1;
     var position = (coordx-1)*10;
     position += coordy;
-    if(type == 1)
+    if(type === 1)
     {
         document.getElementById((position).toString()+'one').style.backgroundColor = 'blue';
     }
-    if(type == 2)
+    if(type === 3)
     {
         document.getElementById((position+1).toString()+'one').style.backgroundColor = 'red';
         document.getElementById((position-1).toString()+'one').style.backgroundColor = 'red';
@@ -82,7 +83,7 @@ function completeout(type,coordx,coordy)
     {
         document.getElementById((position).toString()+'one').style.backgroundColor = 'transparent';
     }
-    if(type == 2)
+    if(type == 3)
     {
         if(mytable[coordx][coordy+1] == 0)document.getElementById((position+1).toString()+'one').style.backgroundColor = 'transparent';
         if(mytable[coordx][coordy-1] == 0)document.getElementById((position-1).toString()+'one').style.backgroundColor = 'transparent';
@@ -93,11 +94,11 @@ function completeover(type,coordx,coordy)
 {
     var position = (coordx-1)*10;
     position += coordy;
-    if(type == 1)
+    if(type === 1)
     {
         document.getElementById((position).toString()+'one').style.backgroundColor = 'purple';
     }
-    if(type == 2)
+    if(type === 3)
     {
         if(mytable[coordx][coordy-1] == 0 && mytable[coordx][coordy+1] == 0) 
         {
@@ -113,6 +114,7 @@ var main = function start(){
     tableCreate('player1');
     tableCreate('player2');
     var type = 1;
+    var noShipsAvailable = false;
     $("td").on("click" , function() {     
 
         //this.style.color = red;  
@@ -128,15 +130,47 @@ var main = function start(){
                
                 available[type] --;
                 complete(1,posx,posy);
+
+                $("#type1").text(`${available[type]} x UFO`);
+                if(available[1] === 0)
+                {
+                    $("#type1").fadeOut();
+                }
            }
-           else if(type === 2 && verify(parseInt(cell.id),2) && available[type] && parseInt(cell.id)%10 > 1) 
+           else if(type === 3 && verify(parseInt(cell.id),3) && available[type] && parseInt(cell.id)%10 > 1) 
            {
                available[type]--;
-               complete(2,posx,posy);
+               complete(3,posx,posy);
+
+               $("#type3").text(`${available[type]} x Galactic Rocket`);
+               if(available[3] === 0)
+               {
+                   $("#type3").fadeOut();
+               }
            }
+
+           if(available[1] === 0  && available[3] === 0 && noShipsAvailable === false)
+           {
+               noShipsAvailable = true;
+
+               $("#rotate").fadeOut();
+               var $newButton = $("<button>" , {id: "ready"});
+               $newButton.text("READY!");
+               $newButton.hide();
+               $(".buttons").append($newButton);
+               
+               setInterval(function() {
+                $newButton.fadeIn();
+               },1000);
+
+               $("#messageBox").val("Press ready to continue!");
+
+           }
+        
         } 
         
     });
+
     $("#type1").on("click" , function()
     {
         type = 1;
@@ -144,6 +178,10 @@ var main = function start(){
     $("#type2").on("click" , function()
     {
         type = 2;
+    });
+    $("#type3").on("click" , function()
+    {
+        type = 3;
     });
     $("td").on("mouseover",function()
     {
@@ -156,9 +194,9 @@ var main = function start(){
             {
                completeover(1,posx,posy);
             }
-            if(type===2 && position%10 > 1)
+            if(type===3 && position%10 > 1)
             {
-                completeover(2,posx,posy);
+                completeover(3,posx,posy);
              } 
         }
       });
@@ -172,12 +210,13 @@ var main = function start(){
         {
             completeout(1,posx,posy);
         }
-        if(type===2)
+        if(type===3)
         {
-            completeout(2,posx,posy);
+            completeout(3,posx,posy);
         }}
       });
 
-      $("#messageBox").val("Here we write messages");
+
+      $("#messageBox").val("Place your ships!");
 }
 $(document).ready(main);
