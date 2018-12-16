@@ -76,6 +76,7 @@ connection.onmessage = function(event)
                         }
                     }
                 }
+
                 connection.send(position+"HIT");
             }
             else
@@ -251,7 +252,7 @@ var main = function start(){
     tableCreate('player1');
     tableCreate('player2');
     var type = 1;
-    var noShipsAvailable = false;
+    var noShipsAvailable = false; 
     $("#type1").on("click" , function()
     {
         type = 1;
@@ -272,24 +273,28 @@ var main = function start(){
 
     $("td").on("mouseover",function()
     {
-        var position = parseInt(this.id);
-        var posx = parseInt(position/10) +1;
-        var posy = position%10;
-        if(this.id.includes('one') && mytable[posx][posy] == 0)
+        if(available[type] > 0)
         {
-            if(type==1)
+            var position = parseInt(this.id);
+            var posx = parseInt(position/10) +1;
+            var posy = position%10;
+            if(this.id.includes('one') && mytable[posx][posy] == 0)
             {
-               completeover(1,posx,posy);
+                if(type==1)
+                {
+                completeover(1,posx,posy);
+                }
+                if(type==3 && ((antirotate && posy>= 0 && posy<=9) || (rotate && posy>=1 && posy <=8)))
+                {
+                    completeover(3,posx,posy);
+                }
+                if(type==2 && ((antirotate &&  posx<10) || (rotate && posy<9)))
+                {
+                    completeover(2,posx,posy);
+                } 
             }
-            if(type==3 && ((antirotate && posy>= 0 && posy<=9) || (rotate && posy>=1 && posy <=8)))
-            {
-                completeover(3,posx,posy);
-            }
-            if(type==2 && ((antirotate &&  posx<10) || (rotate && posy<9)))
-            {
-                completeover(2,posx,posy);
-            } 
         }
+
     });
     $("td").on("mouseout", function()
      {
