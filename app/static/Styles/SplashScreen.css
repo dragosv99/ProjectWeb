@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+
+	width: 1000px;
+	margin: auto;
+	background-size: cover;
+}
+
+#logo {
+
+	position: absolute;
+	left: 40%;
+	top: 100px;
+}
+
+.buttons {
+	
+	margin: auto;
+	width: 100px;
+}
+
+#playButton {
+	position: absolute;
+	left: 40%;
+	top: 300px;
+	border-radius: 10px;
+		
+}
+
+#playButton:hover {
+	 
+	transform: scale(1.2); 
+}
+
+#howButton
+{
+	position: absolute;
+	left: 40%;
+	top: 400px;
+	border-radius: 10px;
+}
+
+#howButton:hover {
+	 
+	transform: scale(1.2); 
+}
+
+#settingsButton
+{
+	position: absolute;
+	left: 40%;
+	top: 600px;
+	border-radius: 10px;
+}
+
+#settingsButton:hover {
+	 
+	transform: scale(1.2); 
+}
+
+p {
+	
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 60px;
+	text-align: center;
+	position: relative;
+	top: 300px;
+	border-radius: 10px;
+	animation: blinker 2s linear infinite;
+  }
+  
+  @keyframes blinker {
+	50% {
+	  opacity: 0;
+	}
+}
