@@ -111,8 +111,6 @@ connection.onmessage = function(event)
         $("#messageBox").val("It's the opponent's turn");
     }
 }
-
-
 function tableCreate(name){
     var body = document.body, table  = document.createElement('table');
     table.id = name; 
@@ -247,6 +245,66 @@ var main = function start(){
     tableCreate('player2');
     var type = 1;
     var noShipsAvailable = false;
+    $("#type1").on("click" , function()
+    {
+        type = 1;
+    });
+    $("#type2").on("click" , function()
+    {
+        type = 2;
+    });
+    $("#type3").on("click" , function()
+    {
+        type = 3;
+    });
+    $("#rotate").on("click" , function()
+    {
+        rotate = 1-rotate;
+        antirotate = 1-antirotate;
+    });
+
+    $("td").on("mouseover",function()
+    {
+        var position = parseInt(this.id);
+        var posx = parseInt(position/10) +1;
+        var posy = position%10;
+        if(this.id.includes('one') && mytable[posx][posy] == 0)
+        {
+            if(type==1)
+            {
+               completeover(1,posx,posy);
+            }
+            if(type==3 && ((antirotate && posy>= 0 && posy<=9) || (rotate && posy>=1 && posy <=8)))
+            {
+                completeover(3,posx,posy);
+            }
+            if(type==2 && ((antirotate &&  posx<10) || (rotate && posy<9)))
+            {
+                completeover(2,posx,posy);
+            } 
+        }
+      });
+    $("td").on("mouseout", function()
+     {
+        var position = parseInt(this.id);
+        var posx = parseInt(position/10) +1;
+        var posy = position%10;
+        if(this.id.includes('one') && mytable[posx][posy] == 0)
+        {
+        if(type===1)
+        {
+            completeout(1,posx,posy);
+        }
+        if(type===3)
+        {
+            completeout(3,posx,posy);
+        }
+        if(type===2)
+        {
+            completeout(2,posx,posy);
+        }
+        }
+      });
     $("td").on("click" , function() {     
 
         //this.style.color = red;  
@@ -269,7 +327,7 @@ var main = function start(){
                     $("#type1").fadeOut();
                 }
            }
-           if(type === 2 && verify(parseInt(cell.id),2) && available[type] &&  ((posy >= 0 && antirotate && posy<=9) || (posx<10 && rotate))) 
+           if(type === 2 && verify(parseInt(cell.id),2) && available[type] &&  ((antirotate && posx<=9) || (posy<9 && rotate))) 
            {
                
                 available[type] --;
@@ -304,13 +362,15 @@ var main = function start(){
                $newButton.on("click", function()
                {
                    connection.send("DONE");
-               })
+                   $("#messageBox").val("WAIT FOR OPPONENT TO PLACE SHIPS");
+                   $("#ready").fadeOut();
+               });
                $(".buttons").append($newButton);
                
-               setInterval(function() {
+               setTimeout(function() {
                 $newButton.fadeIn();
                },1000);
-               $("#messageBox").val("Press ready to continue!");
+               $("#messageBox").val("Press READY to continue!");
            }
         
         } 
@@ -324,67 +384,6 @@ var main = function start(){
         }
         
     });
-
-    $("#type1").on("click" , function()
-    {
-        type = 1;
-    });
-    $("#type2").on("click" , function()
-    {
-        type = 2;
-    });
-    $("#type3").on("click" , function()
-    {
-        type = 3;
-    });
-    $("#rotate").on("click" , function()
-    {
-        rotate = 1-rotate;
-        antirotate = 1-antirotate;
-    });
-
-    $("td").on("mouseover",function()
-    {
-        var position = parseInt(this.id);
-        var posx = parseInt(position/10) +1;
-        var posy = position%10;
-        if(this.id.includes('one') && mytable[posx][posy] == 0)
-        {
-            if(type==1)
-            {
-               completeover(1,posx,posy);
-            }
-            if(type==3 && ((antirotate && posy>= 0 && posy<=9) || (rotate && posy>=1 && posy <=8)))
-            {
-                completeover(3,posx,posy);
-            }
-            if(type==2 && ((antirotate && posy>=0 && posy<9) || (rotate && posx<10)))
-            {
-                completeover(2,posx,posy);
-            } 
-        }
-      });
-     $("td").on("mouseout", function()
-     {
-        var position = parseInt(this.id);
-        var posx = parseInt(position/10) +1;
-        var posy = position%10;
-        if(this.id.includes('one') && mytable[posx][posy] == 0)
-        {
-        if(type===1)
-        {
-            completeout(1,posx,posy);
-        }
-        if(type===3)
-        {
-            completeout(3,posx,posy);
-        }
-        if(type===2)
-        {
-            completeout(2,posx,posy);
-        }
-        }
-      });
      // $("#messageBox").val("Place your ships!");
 }
 $(document).ready(main);
