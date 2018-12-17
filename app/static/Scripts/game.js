@@ -25,7 +25,7 @@ function clear()
             let position = (i-1)*10;
             position += j;
             document.getElementById(position+'two').style.backgroundColor = 'transparent';
-            document.getElementById(position+'one').style.border = '5px solid black';
+            document.getElementById(position+'one').style.border = '7px solid black';
             document.getElementById(position+'one').style.backgroundColor = 'transparent';
         }
     }
@@ -50,7 +50,7 @@ function initialize(){
             let position = (i-1)*10;
             position += j;
             document.getElementById(position+'two').style.backgroundColor = 'transparent';
-            document.getElementById(position+'one').style.border = '5px solid black';
+            document.getElementById(position+'one').style.border = '7px solid black';
             document.getElementById(position+'one').style.backgroundColor = 'transparent';
             $("#type3").attr('src', "media/GR2.png");
             $("#type2").attr('src', "media/SP2.png");
@@ -226,10 +226,14 @@ function tableCreate(name){
             if (j != 0 && i != 0)
             {
                 var td = tr.insertCell();
-                td.style.border = '5px solid black';
+                td.style.border = '7px solid black';
                 td.id = ((i-1)*10 + j-1).toString();
                 if(name == 'player1') td.id += "one";
-                if(name == 'player2') td.id += "two";
+                if(name == 'player2') 
+                {
+                    td.style.border = '4px solid black';
+                    td.id += "two";
+                }
             }
         }
     }
@@ -243,15 +247,15 @@ function complete(type,coordx,coordy)
     if(type === 1)
     {
         document.getElementById((position).toString()+'one').style.opacity = 1;
-        document.getElementById((position).toString()+'one').style.border = '1px';
+        document.getElementById((position).toString()+'one').style.border = '0px';
         alive[shipno]=1;
     }
     if(type === 2)
     {
         document.getElementById((position+rotate+10*antirotate).toString()+'one').style.opacity = 1;
         document.getElementById((position).toString()+'one').style.opacity = 1;
-        document.getElementById((position+rotate+10*antirotate).toString()+'one').style.border = '1px';
-        document.getElementById((position).toString()+'one').style.border = '1px';
+        document.getElementById((position+rotate+10*antirotate).toString()+'one').style.border = '0px';
+        document.getElementById((position).toString()+'one').style.border = '0px';
         mytable[coordx+antirotate][coordy+rotate]=shipno;
         alive[shipno]=2;
     }
@@ -260,9 +264,9 @@ function complete(type,coordx,coordy)
         document.getElementById((position+rotate+10*antirotate).toString()+'one').style.opacity = 1;
         document.getElementById((position-rotate-10*antirotate).toString()+'one').style.opacity = 1;
         document.getElementById((position).toString()+'one').style.opacity = 1;
-        document.getElementById((position+rotate+10*antirotate).toString()+'one').style.border = '1px';
-        document.getElementById((position-rotate-10*antirotate).toString()+'one').style.border = '1px';
-        document.getElementById((position).toString()+'one').style.border = '1px';
+        document.getElementById((position+rotate+10*antirotate).toString()+'one').style.border = '0px';
+        document.getElementById((position-rotate-10*antirotate).toString()+'one').style.border = '0px';
+        document.getElementById((position).toString()+'one').style.border = '0px';
         mytable[coordx-antirotate][coordy-rotate]=shipno;
         mytable[coordx+antirotate][coordy+rotate]=shipno;
         alive[shipno]=3;
@@ -271,13 +275,13 @@ function complete(type,coordx,coordy)
     {
         for(let w=0;w<=9;w++)
         {
-            if(w==0) document.getElementById(((z-1)*10+w).toString()+'one').style.borderLeft = '5px solid black';
-            if(w==9) document.getElementById(((z-1)*10+w).toString()+'one').style.borderRight = '5px solid black';
-            if(z==1) document.getElementById(((z-1)*10+w).toString()+'one').style.borderTop = '5px solid black';
-            if(z==10) document.getElementById(((z-1)*10+w).toString()+'one').style.borderBottom = '5px solid black';
+            if(w==0) document.getElementById(((z-1)*10+w).toString()+'one').style.borderLeft = '7px solid black';
+            if(w==9) document.getElementById(((z-1)*10+w).toString()+'one').style.borderRight = '7px solid black';
+            if(z==1) document.getElementById(((z-1)*10+w).toString()+'one').style.borderTop = '7px solid black';
+            if(z==10) document.getElementById(((z-1)*10+w).toString()+'one').style.borderBottom = '7px solid black';
             
-            if( w+1<=9 && mytable[z][w] != mytable[z][w+1]) document.getElementById(((z-1)*10+w).toString()+'one').style.borderRight = '5px solid black';
-            if(z+1<=10 && mytable[z][w] != mytable[z+1][w]) document.getElementById(((z-1)*10+w).toString()+'one').style.borderBottom = '5px solid black';
+            if( w+1<=9 && mytable[z][w] != mytable[z][w+1]) document.getElementById(((z-1)*10+w).toString()+'one').style.borderRight = '7px solid black';
+            if(z+1<=10 && mytable[z][w] != mytable[z+1][w]) document.getElementById(((z-1)*10+w).toString()+'one').style.borderBottom = '7px solid black';
         }
     }
     shipno++;

@@ -8,17 +8,17 @@ body {
     background-size: cover;
     margin: auto;
     margin-left: 0;
-    width: 1500px;
+    width: 100%;
 }
 #logo {
-    margin: 25px;
+    margin: 45px;
 }
 
 #messageBox {
 
     position: absolute;
     top: 30px;
-    left: 550px;
+    left: 720px;
     height: 30px;
     width: 400px;
     padding: 10px;
@@ -33,22 +33,22 @@ body {
 .stats {
     float: right;
     margin-top: 30px;
-    margin-right: 40px;
-    width: 320px;
-    height: 100px;
+    margin-right: 120px;
+    width: 400px;
+    height: 170px;
     background-color: black; 
-    border: 8px solid rgb(156, 63, 0);
-    border-radius: 10px;
+    border: 8px solid #ce6017;
+    border-radius: 8px;
 }
 
 .stats h2 {
     text-align: center;
-    margin: auto;
-    color: rgb(216, 94, 7);
+    margin: 20px;
+    color: #ce6017;
 }
 
 .stats h3 {
-    color: rgb(216, 94, 7);
+    color: #ce6017;
 }
 
 #you {
@@ -63,8 +63,8 @@ body {
 
 .stats p {
     text-align: center;
-    color: rgb(216, 94, 7);
-    margin: 5px;
+    color: #ce6017;
+    margin: 20px;
     clear: both;
 }
 
@@ -72,7 +72,7 @@ body {
     float: left;
     width: 200px;
     margin-top: 80px;
-    margin-left: 20px;
+    margin-left: 60px;
 }
 
 .buttons input {
@@ -103,7 +103,7 @@ main h2 {
     display: inline;
     position: relative;
     top: 40px;
-    margin-left: 230px;
+    margin-left: 305px;
     margin-right: 160px;
 }
 
@@ -116,7 +116,7 @@ main h2 {
     align-Content: center;
     position: relative;
     top: 50px;
-    left: 80px;
+    left: 150px;
 }
 
 #player2{
@@ -127,7 +127,7 @@ main h2 {
     align-Content: center;
     position: relative;
     top: 50px;
-    left: 200px;
+    left: 310px;
 }
 
 td {    
@@ -137,7 +137,7 @@ td {
 
 p,h2,h3 {
 
-    font-family: 'Courier New', Courier, monospace;
+    font-family: Helvetica, Sans-Serif;
 }
 .transition
 {
