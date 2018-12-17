@@ -2,8 +2,12 @@ var express = require("express");
 var http = require("http");
 var websocket = require("ws");
 var game = require("./game");
+var ejs = require("ejs");
+var cookieParser = require('cookie-parser')
+
 
 var GamesCreated = 0;
+var gamesPlayed = 0;
 var users = [];
 var games = [];
 var port = process.argv[2];
@@ -18,10 +22,22 @@ function opponent (game,id)
     return game.fp;
 }
 
+app.use(cookieParser());
 app.use(express.static(__dirname+"/static"));
 app.get("/",function(req,res)
 {
-    res.sendFile("Splash-screen.html", {root: "./static"});
+
+
+    var cookie = req.cookies;
+    if(cookie.visits)
+    {
+        cookie.visits++;
+    }
+    else
+    {
+        cookie.visits = 1;
+    }
+    res.cookie('visits',cookie.visits).render("Splash-screen.ejs", {nPlayers : playersOnline,nGames : gamesPlayed, n: cookie.visits});
 });
 
 app.get("/game", function(req,res)
@@ -102,6 +118,7 @@ wss.on("connection", function(ws)
         }
         if(message.includes("ILOST"))
         {
+            gamesPlayed++;
             users[opponent(games[ws.id], ws.id)].send("WIN");
             users[ws.id].send("LOST");
         }
