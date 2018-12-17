@@ -3,7 +3,7 @@ var GAMEDONE = false;
 var allowed = false;
 
 mytable = [];
-enemytable = [];
+enemytable = []; // what was already clicked 
 alive = [];
 alive[0] = 0;
 var shipno =1;
