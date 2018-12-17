@@ -11,19 +11,11 @@ var main = function () {
     });
 
     $("#playButton").on("click", function(event){
-        $(".buttons").hide();
-
-        var $message = $("<p>" , {class: "redirect"});
-        $message.text("Searching for opponent...");
-        $message.hide();
-        $("body").append($message);
-        $message.fadeIn();
-
+        //$(".buttons").hide();
         function openGameScreen() {
             location.href = "GameScreen.html";
         };
-        window.setTimeout(openGameScreen,3000);
-    
+        openGameScreen();
     });
     
     $("#howButton").on("click", function(event){

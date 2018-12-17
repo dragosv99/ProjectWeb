@@ -12,6 +12,24 @@ var antirotate=0;
 var placeable = false;
 var noShipsAvailable = false; 
 available = [];
+function clear()
+{
+    for(var i = 1;i <= 10; i++)
+    {
+        mytable[i]=[];
+        enemytable[i]=[];
+        for(var j = 0;j <= 9; j++)
+        {
+            mytable[i][j]=0;
+            enemytable[i][j]= false;
+            let position = (i-1)*10;
+            position += j;
+            document.getElementById(position+'two').style.backgroundColor = 'transparent';
+            document.getElementById(position+'one').style.border = '5px solid black';
+            document.getElementById(position+'one').style.backgroundColor = 'transparent';
+        }
+    }
+}
 function initialize(){
     
     placeable = false;
@@ -32,6 +50,7 @@ function initialize(){
             let position = (i-1)*10;
             position += j;
             document.getElementById(position+'two').style.backgroundColor = 'transparent';
+            document.getElementById(position+'one').style.border = '5px solid black';
             document.getElementById(position+'one').style.backgroundColor = 'transparent';
             $("#type3").attr('src', "media/GR2.png");
             $("#type2").attr('src', "media/SP2.png");
@@ -65,23 +84,51 @@ connection.onmessage = function(event)
     if(event.data === "LOST")
     {
         $("#messageBox").val("YOU LOST");
+        clear();
+        var $newButton = $("<input>" , {type: "image" , id: "back"});
+        //$newButton.text("READY!");
+        $newButton.attr('src', "media/Back.png");
+        $newButton.hide();
+        $newButton.on("click", function()
+        {
+            $newButton.remove();
+            window.location = "../";
+        });
+        $(".buttons").append($newButton);
+        $newButton.fadeIn();
         GAMEDONE = true;
         return;
     }
     if(event.data === "WIN")
     {
         $("#messageBox").val("YOU WON");
+        clear();
+        var $newButton = $("<input>" , {type: "image" , id: "back"});
+        //$newButton.text("READY!");
+        $newButton.attr('src', "media/Back.png");
+        $newButton.hide();
+        $newButton.on("click", function()
+        {
+            window.location = "../";
+        });
+        $(".buttons").append($newButton);
+        $newButton.fadeIn();
         GAMEDONE = true;
         return;
     }
     if(event.data === "PLACE")
     {
+        $('#messageBox').addClass('notransition'); // to remove transition
+        $('#messageBox').removeClass('transition'); 
         $("#messageBox").val("Place your ships");
         placeable = true;
     }
     if(event.data.includes("WAIT"))
     {
+        $("#back").remove();
         $("#messageBox").val("Searching for opponent");
+        $('#messageBox').addClass('transition'); // to remove transition
+        $('#messageBox').removeClass('notransition'); 
     }
     if(event.data.includes("VERIFY"))
     {
@@ -196,12 +243,15 @@ function complete(type,coordx,coordy)
     if(type === 1)
     {
         document.getElementById((position).toString()+'one').style.opacity = 1;
+        document.getElementById((position).toString()+'one').style.border = '1px';
         alive[shipno]=1;
     }
     if(type === 2)
     {
         document.getElementById((position+rotate+10*antirotate).toString()+'one').style.opacity = 1;
         document.getElementById((position).toString()+'one').style.opacity = 1;
+        document.getElementById((position+rotate+10*antirotate).toString()+'one').style.border = '1px';
+        document.getElementById((position).toString()+'one').style.border = '1px';
         mytable[coordx+antirotate][coordy+rotate]=shipno;
         alive[shipno]=2;
     }
@@ -210,9 +260,25 @@ function complete(type,coordx,coordy)
         document.getElementById((position+rotate+10*antirotate).toString()+'one').style.opacity = 1;
         document.getElementById((position-rotate-10*antirotate).toString()+'one').style.opacity = 1;
         document.getElementById((position).toString()+'one').style.opacity = 1;
+        document.getElementById((position+rotate+10*antirotate).toString()+'one').style.border = '1px';
+        document.getElementById((position-rotate-10*antirotate).toString()+'one').style.border = '1px';
+        document.getElementById((position).toString()+'one').style.border = '1px';
         mytable[coordx-antirotate][coordy-rotate]=shipno;
         mytable[coordx+antirotate][coordy+rotate]=shipno;
         alive[shipno]=3;
+    }
+    for(let z=1;z<=10;z++)
+    {
+        for(let w=0;w<=9;w++)
+        {
+            if(w==0) document.getElementById(((z-1)*10+w).toString()+'one').style.borderLeft = '5px solid black';
+            if(w==9) document.getElementById(((z-1)*10+w).toString()+'one').style.borderRight = '5px solid black';
+            if(z==1) document.getElementById(((z-1)*10+w).toString()+'one').style.borderTop = '5px solid black';
+            if(z==10) document.getElementById(((z-1)*10+w).toString()+'one').style.borderBottom = '5px solid black';
+            
+            if( w+1<=9 && mytable[z][w] != mytable[z][w+1]) document.getElementById(((z-1)*10+w).toString()+'one').style.borderRight = '5px solid black';
+            if(z+1<=10 && mytable[z][w] != mytable[z+1][w]) document.getElementById(((z-1)*10+w).toString()+'one').style.borderBottom = '5px solid black';
+        }
     }
     shipno++;
 }
@@ -452,7 +518,7 @@ var main = function start(){
                 connection.send(parseInt(cell.id) + 'PC');
                 allowed = false;
             }
-            if(enemytable[posx][posy] == true)
+            if(enemytable[posx][posy] == true && !GAMEDONE)
             {
                 $("#messageBox").val("Choose another cell to attack!");
             }
