@@ -6,14 +6,6 @@ var game = function (gameID)
     this.Bready = false;
     this.gameID = gameID;
     this.gamestarted = false;
-    this.opponent = function (game,id)
-    {
-        if (id === game.fp)
-        {
-            return game.sp;
-        }
-        return game.fp;
-    }
 };
 
 
@@ -43,7 +35,12 @@ game.prototype.hasTwoConnectedPlayers = function()
 }
 game.prototype.hasOnePlayerConnected = function()
 {
-    return (this.sp == null);
+    return (this.sp == null || this.fp == null);
+}
+
+game.prototype.hasNoPlayerConnected = function()
+{
+    return (this.sp == null && this.dp == null);
 }
 
 game.prototype.addPlayer = function(id){
