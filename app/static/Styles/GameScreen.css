@@ -107,6 +107,21 @@ main h2 {
     margin-right: 160px;
 }
 
+#player2 td{
+    height: 38px;
+    width: 38px;
+    transition: height 100ms;
+    transition: width 100ms;
+}
+
+#player1 td
+{
+    height: 38px;
+    width: 38px;
+    transition: height 100ms;
+    transition: width 100ms;
+}
+
 
 #player1{
    
@@ -117,6 +132,18 @@ main h2 {
     position: relative;
     top: 50px;
     left: 150px;
+}
+
+.isDone1
+{
+    height:35px;
+    width:35px;
+}
+
+.isDone2
+{
+    height: 38px;
+    width:38px;
 }
 
 #player2{
@@ -130,10 +157,6 @@ main h2 {
     left: 310px;
 }
 
-td {    
-    width: 38px;
-    height: 38px;
-}
 
 p,h2,h3 {
 
