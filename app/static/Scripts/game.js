@@ -2,8 +2,9 @@ var connection = new WebSocket("ws://localhost:3000");
 var GAMEDONE = false;
 var allowed = false;
 
-mytable = [];
-enemytable = []; // what was already clicked 
+available = []; //availbale ships of a type
+mytable = []; //the table of the user
+enemytable = []; // the table with enemy cells
 alive = [];
 alive[0] = 0;
 var shipno =1;
@@ -11,7 +12,6 @@ var rotate = 1;
 var antirotate=0;
 var placeable = false;
 var noShipsAvailable = false; 
-available = [];
 function clear()
 {
     for(var i = 1;i <= 10; i++)
@@ -49,9 +49,9 @@ function initialize(){
             enemytable[i][j]= false;
             let position = (i-1)*10;
             position += j;
-            document.getElementById(position+'two').style.backgroundColor = 'transparent';
             document.getElementById(position+'one').style.border = '6px solid black';
             document.getElementById(position+'one').style.backgroundColor = 'transparent';
+            document.getElementById(position+'two').style.backgroundColor = 'transparent';
             $("#type3").attr('src', "media/GR2.png");
             $("#type2").attr('src', "media/SP2.png");
             $("#type1").attr('src', "media/UFO2.png");
@@ -86,7 +86,6 @@ connection.onmessage = function(event)
         $("#messageBox").val("YOU LOST");
         clear();
         var $newButton = $("<input>" , {type: "image" , id: "back"});
-        //$newButton.text("READY!");
         $newButton.attr('src', "media/Back.png");
         $newButton.hide();
         $newButton.on("click", function()
@@ -446,8 +445,6 @@ var main = function start(){
     });
     $("td").on("click" , function() {     
 
-        //this.style.color = red;  
-        //$("#result").html( this.id );   
         var cell = document.getElementById(this.id);
         var position = parseInt(cell.id);
         var posx = parseInt(position/10) +1;
@@ -465,7 +462,8 @@ var main = function start(){
                 {
                     $("#type1").fadeOut();
                     if(available[2] > 0) type=2;
-                   if(available[3] > 0) type=3;
+                    if(available[3] > 0) type=3;
+                    
                 }
            }
            if(type === 2 && verify(parseInt(cell.id),2) && available[type] &&  ((antirotate && posx<=9) || (posy<9 && rotate))) 
