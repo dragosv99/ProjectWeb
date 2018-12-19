@@ -6,7 +6,6 @@ var ejs = require("ejs");
 var cookieParser = require('cookie-parser')
 
 
-
 var GamesCreated = 0;
 var gamesPlayed = 0;
 var users = [];
@@ -20,6 +19,8 @@ app.use(express.static(__dirname+"/static"));
 
 var server = http.createServer(app);
 const wss = new websocket.Server({server});
+
+app.use(cookieParser());
 
 var currentGame = new game(++GamesCreated);
 var ID = 0;
