@@ -58,6 +58,7 @@ body {
     width: 320px;
     height: 150px;
     background-color: black; 
+    color: #ce6017;
     border: 8px solid #ce6017;
     border-radius: 8px;
     transition: transform 0.4s;
@@ -70,37 +71,40 @@ body {
 .stats h2 {
     text-align: center;
     margin: 15px;
-    color: #ce6017;
 }
 
-.stats h3 {
-    color: #ce6017;
-}
-
-#you {
+.you, .statsType, .enemy {
     float: left;
-    margin-left: 30px;
-    margin-bottom: 10px;
-}
-
-#enemy {
-    float: right;
-    margin-right: 20px;
-    margin-bottom: 10px;
-}
-
-.stats p {
+    margin: auto;
     text-align: center;
-    color: #ce6017;
+}
+
+.you {
+    width: 25%;
+}
+
+.you p , .enemy p {
     margin-top: 10px;
-    clear: both;
+}
+
+.statsType {
+    width: 50%;
+    margin-top: 20px;
+}
+
+.enemy{ 
+    width: 25%;
+}
+
+.statsType p {
+    margin-top: 10px;
 }
 
 .buttons {
     float: left;
     width: 200px;
     margin-top: 80px;
-    margin-left: 40px;
+    margin-left: 5px;
 }
 
 .buttons input {
@@ -124,10 +128,9 @@ body {
 }
 
 #ready {
+
     padding: 25px;
     width: 200px;
-    font-size: 20px;
-    font-weight: bold;
 }
 
 #rotate {
@@ -180,7 +183,7 @@ body {
     align-Content: center;
     position: relative;
     top: 50px;
-    left: 150px;
+    left: 120px;
 }
 
 .isDone1
@@ -216,8 +219,8 @@ p,h2,h3 {
     display: inline;
     position: relative;
     top: 40px;
-    margin-left: 260px;
-    margin-right: 100px;
+    margin-left: 230px;
+    margin-right: 160px;
     font-size: 180%;
 }
 
