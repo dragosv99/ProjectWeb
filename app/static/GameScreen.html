@@ -17,7 +17,7 @@
             <div class="stats">
                 <h2>GAME STATS</h2>
                 <h3 id="you">YOU</h3>
-                <h3 id="opponent">OPPONENT</h3>
+                <h3 id="enemy">ENEMY</h3>
                 <p>Ships Alive</p>
                 <p>Ships Destroyed</p>
             </div>
@@ -26,6 +26,8 @@
 
         <main>
             <div id = "result"> </div>
+
+            <input type="image" id="fullscreen" src="media/fullscreen.png" />
 
             <div class="buttons">
                 
@@ -36,14 +38,16 @@
 
             </div>
 
-            <h2>Your Ships</h2>
-            <h2>Enemy Ships</h2>
+            <div class="tableTitle">
+                <h2>Your Ships</h2>
+                <h2>Enemy Ships</h2>
+            </div>
 
         </main>
 
-        <footer>
-
-        </footer>
+        <div class="resolution">
+			<p>resize your screen to a minimal resolution of </p>
+		</div>
 
         <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
         <script src="scripts/game.js"></script>

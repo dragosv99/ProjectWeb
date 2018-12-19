@@ -25,7 +25,7 @@ function clear()
             let position = (i-1)*10;
             position += j;
             document.getElementById(position+'two').style.backgroundColor = 'transparent';
-            document.getElementById(position+'one').style.border = '6px solid black';
+            document.getElementById(position+'one').style.border = '5px solid black';
             document.getElementById(position+'one').style.backgroundColor = 'transparent';
         }
     }
@@ -49,7 +49,7 @@ function initialize(){
             enemytable[i][j]= false;
             let position = (i-1)*10;
             position += j;
-            document.getElementById(position+'one').style.border = '6px solid black';
+            document.getElementById(position+'one').style.border = '5px solid black';
             document.getElementById(position+'one').style.backgroundColor = 'transparent';
             document.getElementById(position+'two').style.backgroundColor = 'transparent';
             $("#type3").attr('src', "media/GR2.png");
@@ -181,7 +181,7 @@ connection.onmessage = function(event)
         var posy = parseInt(position)%10;
         enemytable[posx][posy] = true;
        
-        $("#messageBox").val("It's the opponent's turn");
+        $("#messageBox").val("It's opponent's turn");
     }
     if (event.data.includes("HIT")){
         let position = parseInt(event.data) + 'two';
@@ -194,11 +194,11 @@ connection.onmessage = function(event)
         var posy = parseInt(position)%10;
         enemytable[posx][posy] = true;
         
-        $("#messageBox").val("It's th eopponent's turn");
+        $("#messageBox").val("It's opponent's turn");
     }
     if (event.data.includes("OPTURN"))
     {
-        $("#messageBox").val("It's the opponent's turn");
+        $("#messageBox").val("It's opponent's turn");
     }
 }
 function tableCreate(name){
@@ -225,7 +225,7 @@ function tableCreate(name){
             if (j != 0 && i != 0)
             {
                 var td = tr.insertCell();
-                td.style.border = '6px solid black';
+                td.style.border = '5px solid black';
                 td.id = ((i-1)*10 + j-1).toString();
                 if(name == 'player1') td.id += "one";
                 if(name == 'player2') 
@@ -533,6 +533,14 @@ var main = function start(){
         }
         
     });
-     // $("#messageBox").val("Place your ships!");
+
+    $("#fullscreen").on("click" , openFullscreen);
+
+    function openFullscreen() {
+        if (document.documentElement.requestFullscreen) 
+            document.documentElement.requestFullscreen();
+        
+    }
+     
 }
 $(document).ready(main);

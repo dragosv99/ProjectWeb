@@ -5,16 +5,27 @@
 
 body{
 
-	width: 1200px;
+	width: 1100px;
 	margin: auto;
 	margin-left: 0%;
 	background-size: cover;
+	background-repeat: no-repeat;
+	animation: fade-in 1.5s;
 }
+
+@keyframes fade-in {
+	0% {
+	  opacity: 0;
+	}
+	100% {
+	  opacity: 1;
+	}
+  }
 
 #logo {
 
 	position: absolute;
-	left: 40%;
+	left: 42%;
 	top: 100px;
 }
 
@@ -24,44 +35,50 @@ body{
 	width: 100px;
 }
 
+.buttons input {
+	transition: transform 0.1s;
+}
+
+input:focus {
+    
+    outline:0;
+}
+
+input:hover {
+	
+	transform: scale(1.1);
+}
+
+input:active {
+	
+	transform: scale(0.8);
+}
+
 #playButton {
 	position: absolute;
-	left: 40%;
+	left: 42%;
 	top: 300px;
 	border-radius: 10px;
 		
 }
 
-#playButton:hover {
-	 
-	transform: scale(1.2); 
-}
-
 #howButton
 {
 	position: absolute;
-	left: 40%;
+	left: 42%;
 	top: 400px;
 	border-radius: 10px;
 }
 
-#howButton:hover {
-	 
-	transform: scale(1.2); 
-}
 
 #settingsButton
 {
 	position: absolute;
-	left: 40%;
+	left: 42%;
 	top: 600px;
 	border-radius: 10px;
 }
 
-#settingsButton:hover {
-	 
-	transform: scale(1.2); 
-}
 
 .redirect {
 	
@@ -77,6 +94,11 @@ body{
   .stats {
 	float: left;
 	margin: 20px;
+	transition: transform 0.5s;
+  }
+
+  .stats:hover{
+	  transform: scale(1.1);
   }
 
   .stats p {
@@ -85,9 +107,61 @@ body{
 	font-size: 20px;
 	margin: 10px;
   }
+
+  .resolution {
+    display: none;
+    position: fixed;
+    top: 40%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    align-items: center;
+    font-size: 250%;
+    text-align: center;
+  }
+
+  .resolution p::after {
+    content: "1500 x 700" ;
+  }
+
+  .resolution p::before {
+    content: "Please " ;
+  }
+
+  #meteorite {
+
+	position: absolute;
+	left: 55%;
+	width: 100px ;
+	height: 100px ;
+	animation: slide linear 20s;
+	animation-fill-mode: forwards;
+	
+  }
+  
+  @keyframes slide{
+	
+	0% {
+			  transform: translateY(0) translateX(0);
+	}
+	100% {
+			  transform: translateY(300px) translateX(1000px);
+	}
+  }
+  
   
   @keyframes blinker {
 	50% {
 	  opacity: 0;
 	}
 }
+
+@media screen and (max-height: 700px) , (max-width: 1500px) {
+	
+	main {
+		display: none;
+	}
+	.resolution {
+		display: unset;
+	}
+  }

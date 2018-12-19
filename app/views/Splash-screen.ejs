@@ -7,25 +7,34 @@
 	</head>
 	<body background="media/background.png">
 
-		<img src="media/logobig.png" id="logo" alt="GameLogo">
+		<main>
+			<img src="media/logobig.png" id="logo" alt="GameLogo">
+			<img src="media/meteorite.jpeg" id="meteorite" alt="meteorite">
 		
-		<div class="buttons">
-			<input type="image" id="playButton" src="media/play.png" />	
+			<div class="buttons">
+				<input type="image" id="playButton" src="media/play.png" />	
 		
-			<input type="image" id="howButton" src="media/how.png" />
+				<input type="image" id="howButton" src="media/how.png" />
 		
-			<input type="image" id="settingsButton"src="media/settings.png" />
-		</div>
+				<input type="image" id="settingsButton" src="media/settings.png" />
 
-		<div class="stats">
+			</div>
 
-			<p id="online">Players Online: <%= nPlayers %> </p>
-			<p id="played">Total Games Played: <%= nGames %> </p>
-			<p>You visited this website <%= n %> times</p>
+			<div class="stats">
+
+				<p id="online">Players Online: <%= nPlayers %> </p>
+				<p id="played">Total Games Played: <%= nGames %> </p>
+				<p>You visited this website <%= n %> times</p>
 			
-		</div>
+			</div>
 
-		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-		<script src="scripts/splash.js"></script>
+			<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+			<script src="scripts/splash.js"></script>
+		</main>
+
+		<div class="resolution">
+			<p> resize your screen to a minimal resolution of </p>
+		</div>
+		
 	</body>
 </html>
