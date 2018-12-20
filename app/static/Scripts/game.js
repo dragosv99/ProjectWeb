@@ -1,4 +1,4 @@
-var connection = new WebSocket("ws://145.94.158.73:3000");
+var connection = new WebSocket("ws://localhost:3000");
 var GAMEDONE = false;
 var allowed = false;
 
