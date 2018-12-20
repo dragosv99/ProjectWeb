@@ -12,6 +12,8 @@ var rotate = 1;
 var antirotate=0;
 var placeable = false;
 var noShipsAvailable = false; 
+var enemyalive = 6;
+var myalive = 6;
 function clear()
 {
     for(var i = 1;i <= 10; i++)
@@ -34,9 +36,15 @@ function initialize(){
     
     placeable = false;
     GAMEDONE = false;
+    enemyalive = 6;
+    myalive = 6;
     rotate=1;
     antirotate=0;
     shipno=1;
+    document.getElementById("myalive").innerHTML = "6";
+    document.getElementById("mydestroyed").innerHTML = "0";
+    document.getElementById("enemyalive").innerHTML = "6";
+    document.getElementById("enemydestroyed").innerHTML = "0";
     noShipsAvailable = false;
     for(var i = 1;i <= 3; i++) available[i] = 2;
     for(var i = 1;i <= 10; i++)
@@ -129,6 +137,12 @@ connection.onmessage = function(event)
         $('#messageBox').addClass('transition'); // to remove transition
         $('#messageBox').removeClass('notransition'); 
     }
+    if(event.data.includes("DESTROYED"))
+    {
+        enemyalive--;
+        document.getElementById("enemyalive").innerHTML = enemyalive.toString();
+        document.getElementById("enemydestroyed").innerHTML = (6-enemyalive).toString();
+    }
     if(event.data.includes("VERIFY"))
     {
         console.log("I VERIFIED");
@@ -150,7 +164,10 @@ connection.onmessage = function(event)
                         }
                     }
                 }
-
+                connection.send("DESTROYED")
+                myalive--;
+                document.getElementById("myalive").innerHTML = myalive.toString();
+                document.getElementById("mydestroyed").innerHTML = (6-myalive).toString();
                 connection.send(position+"HIT");
             }
             else

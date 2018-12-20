@@ -60,7 +60,6 @@ wss.on("connection", function(ws)
 {
     playersOnline++;
     if(playersOnline == 1) currentGame = new game(++GamesCreated);
-    ws.send(playersOnline + "CONNECTED");
     ws.onclose = function()
     {
         playersOnline--;
@@ -116,7 +115,6 @@ wss.on("connection", function(ws)
         }
         if(message.includes("MISS") || message.includes("HIT"))
         {
-            //console.log("GOOD");
             users[opponent(games[ws.id], ws.id)].send(message);
             users[ws.id].send("MOVE");
         }
@@ -125,6 +123,10 @@ wss.on("connection", function(ws)
             gamesPlayed++;
             users[opponent(games[ws.id], ws.id)].send("WIN");
             users[ws.id].send("LOST");
+        }
+        if(message.includes("DESTROYED"))
+        {
+            users[opponent(games[ws.id],ws.id)].send("DESTROYED");
         }
     });
 
