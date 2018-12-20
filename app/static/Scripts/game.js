@@ -1,4 +1,4 @@
-var connection = new WebSocket("ws://localhost:3000");
+var connection = new WebSocket("ws://145.94.158.73:3000");
 var GAMEDONE = false;
 var allowed = false;
 
@@ -185,6 +185,9 @@ connection.onmessage = function(event)
         else
         {
             connection.send(position+"MISS");
+            document.getElementById(position+"one").style.backgroundColor = 'Black';
+            document.getElementById(position+"one").style.opacity = 0.4;
+            
         }
     }
     if (event.data.includes("MISS")){
@@ -326,6 +329,11 @@ function completeout(type,coordx,coordy)
 {
     var position = (coordx-1)*10;
     position += coordy;
+    if(type === "two")
+    {
+        document.getElementById((position).toString()+'two').style.backgroundColor = 'transparent';
+    }
+    if(noShipsAvailable) return;
     if(type == 1)
     {
         document.getElementById((position).toString()+'one').style.backgroundColor = 'transparent';
@@ -340,10 +348,6 @@ function completeout(type,coordx,coordy)
         if(mytable[coordx+antirotate][coordy+rotate] == 0)document.getElementById((position+rotate+10*antirotate).toString()+'one').style.backgroundColor = 'transparent';
         if(mytable[coordx-antirotate][coordy-rotate] == 0)document.getElementById((position-rotate-10*antirotate).toString()+'one').style.backgroundColor = 'transparent';
         document.getElementById((position).toString()+'one').style.backgroundColor = 'transparent';
-    }
-    if(type === "two")
-    {
-        document.getElementById((position).toString()+'two').style.backgroundColor = 'transparent';
     }
 }
 function completeover(type,coordx,coordy)
