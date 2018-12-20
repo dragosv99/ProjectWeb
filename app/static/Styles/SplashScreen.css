@@ -130,22 +130,25 @@ input:active {
 
   #meteorite {
 
+
 	position: absolute;
-	left: 55%;
+	left: 20%;
 	width: 100px ;
 	height: 100px ;
-	animation: slide linear 20s;
+	animation: slide linear 9s;
 	animation-fill-mode: forwards;
+	overflow:hidden;
 	
-  }
+	}
+
   
   @keyframes slide{
 	
 	0% {
-			  transform: translateY(0) translateX(0);
+				transform: translateY(0) translateX(0) rotate(320deg);
 	}
-	100% {
-			  transform: translateY(300px) translateX(1000px);
+	100%{
+		transform: translateY(500px) translateX(1500px) rotate(300deg);
 	}
   }
   

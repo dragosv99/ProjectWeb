@@ -3,6 +3,10 @@
 var main = function () {
     "use strict";
     
+    function deleteanimation ()
+    {
+        $("#meteorite").fadeOut();
+    }
 
     $(".buttons").on("click", function(event) {
         
@@ -33,6 +37,8 @@ var main = function () {
         window.setTimeout(openWikipedia,1500);
     
     });
+
+    window.setTimeout(deleteanimation,8500);
 
 };
 
